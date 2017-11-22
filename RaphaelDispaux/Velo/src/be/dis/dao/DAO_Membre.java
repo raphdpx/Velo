@@ -265,6 +265,17 @@ public class DAO_Membre extends DAO<Membre> {
 			if(result.first())
 				System.out.println("Vous êtes déjà inscrit dans cette catégorie.");
 			else {
+				stm = connect.prepareStatement(
+						"SELECT * FROM LD_Membre_Cat "
+						+ "WHERE IDMembre = ?",
+						ResultSet.TYPE_SCROLL_SENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				stm.setInt(1, membre.getId());
+				result = stm.executeQuery();
+				if(result.first())
+					membre.setDette(membre.getDette()+5);
+				else
+					membre.setDette(membre.getDette()+20);
 				stm = connect.prepareStatement(""
 						+ "INSERT INTO LD_Membre_Cat(IDMembre, IDCat) "
 						+ "VALUES(?, ?)");
@@ -272,6 +283,7 @@ public class DAO_Membre extends DAO<Membre> {
 				stm.setInt(2, cat.getId());
 				stm.executeUpdate();
 				bool = true;
+				this.update(membre);
 			}
 		}
 		catch(SQLException e) {
