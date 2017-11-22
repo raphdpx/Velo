@@ -16,6 +16,7 @@ public class AffichageMembre {
 		do {
 			System.out.println("************************************************");
 			System.out.println();
+			System.out.println(" " + membre.getNom() + " " + membre.getPrenom() + " Dette : " + membre.getDette());
 			System.out.println(" 1. Inscription dans une catégorie");
 			System.out.println(" 2. Inscrire sa voiture dans une balade");
 			System.out.println(" 3. S'incrire sans voiture pour une balade");
