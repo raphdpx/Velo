@@ -113,6 +113,14 @@ public class DAO_Balade extends DAO<Balade> {
 			while(result.next()) {
 				placesV += result.getInt("PlacesV");
 			}
+			PreparedStatement stm2 = connect.prepareStatement("SELECT Count(*) FROM LD_Voiture_Balade "
+					+ "WHERE IDBalade = " + balade.getId() + " GROUP BY IDBalade",
+					ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			result = stm2.executeQuery();
+			while(result.next()) {
+				placesV -= result.getInt(1);
+			}
 			return placesV;
 		}
 		catch(SQLException e) {
@@ -132,6 +140,14 @@ public class DAO_Balade extends DAO<Balade> {
 			result = stm.executeQuery();
 			while(result.next()) {
 				placesP += result.getInt("PlacesP");
+			}
+			PreparedStatement stm2 = connect.prepareStatement("SELECT Count(*) FROM LD_Voiture_Balade "
+					+ "WHERE IDBalade = " + balade.getId() + " GROUP BY IDBalade",
+					ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			result = stm2.executeQuery();
+			while(result.next()) {
+				placesP -= result.getInt(1);
 			}
 			return placesP;
 		}
