@@ -3,6 +3,7 @@ package be.dis.affichage;
 import java.util.List;
 
 import be.dis.clavier.Clavier;
+import be.dis.dao.DAO_Balade;
 import be.dis.dao.DAO_Categorie;
 import be.dis.dao.DAO_Connection;
 import be.dis.dao.DAO_Membre;
@@ -101,6 +102,7 @@ public class AffichageMembre {
 	public static void baladeConducteur(Membre membre) {
 		int choix;
 		DAO_Membre dao_membre = new DAO_Membre(DAO_Connection.getInstance());
+		DAO_Balade dao_balade = new DAO_Balade(DAO_Connection.getInstance());
 		Calendrier calendar = new Calendrier(dao_membre.listeBalade(membre));
 		List<Balade> listeBalade = calendar.getListeBalade();
 		System.out.println("************************************************");
@@ -110,6 +112,10 @@ public class AffichageMembre {
 			System.out.println(" " + (i+1) 
 					+ ". Depart : " + listeBalade.get(i).getDepart() 
 					+ "		Date : " + listeBalade.get(i).getDate());
+			System.out.println("Places passager disponibles : "
+					+ dao_balade.placesPassager(listeBalade.get(i))
+					+ "  Places Vélo disponibles :"
+					+ dao_balade.placesVelo(listeBalade.get(i)));
 		}
 		System.out.println();
 		System.out.println("************************************************");
@@ -132,6 +138,7 @@ public class AffichageMembre {
 	public static void baladePassager(Membre membre) {
 		int choix;
 		DAO_Membre dao_membre = new DAO_Membre(DAO_Connection.getInstance());
+		DAO_Balade dao_balade = new DAO_Balade(DAO_Connection.getInstance());
 		Calendrier calendar = new Calendrier(dao_membre.listeBalade(membre));
 		List<Balade> listeBalade = calendar.getListeBalade();
 		System.out.println("************************************************");
@@ -141,6 +148,10 @@ public class AffichageMembre {
 			System.out.println(" " + (i+1) 
 					+ ". Depart : " + listeBalade.get(i).getDepart() 
 					+ "		Date : " + listeBalade.get(i).getDate());
+			System.out.println("Places passager disponibles : "
+					+ dao_balade.placesPassager(listeBalade.get(i))
+					+ "  Places Vélo disponibles :"
+					+ dao_balade.placesVelo(listeBalade.get(i)));
 		}
 		System.out.println();
 		System.out.println("************************************************");
