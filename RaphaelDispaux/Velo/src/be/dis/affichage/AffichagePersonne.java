@@ -54,7 +54,7 @@ public class AffichagePersonne {
 		int choix;
 		System.out.println("************************************************");
 		System.out.println();
-		System.out.println("	Bonjour " + personne.getPrenom() + " " + personne.getNom() + " ?" );
+		System.out.println("	Bonjour " + user.getPrenom() + " " + user.getNom());
 		System.out.println();
 		System.out.println("	1. Devenir Membre");
 		System.out.println("	2. Quitter");
