@@ -93,7 +93,7 @@ public class DAO_Voiture extends DAO<Voiture> {
 		DAO_Membre membre = new DAO_Membre(DAO_Connection.getInstance());
 		try {
 			PreparedStatement stm = connect.prepareStatement("SELECT * FROM Voiture V "
-					+ "INNER JOIN LigneDetail_Voiture_Balade L ON V.ID = L.IDVoiture "
+					+ "INNER JOIN LD_Voiture_Balade L ON V.ID = L.IDVoiture "
 					+ "WHERE IDBalade = " + id,
 					ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);

@@ -336,7 +336,7 @@ public class DAO_Membre extends DAO<Membre> {
 				+ "VALUES(?, ?)");
 			stm.setInt(1, dao_voiture.findFromProprio(membre).getId());
 			stm.setInt(2, balade.getId());
-			result = stm.executeQuery();
+			stm.executeUpdate();
 			bool = true;
 			}
 		}
@@ -357,20 +357,20 @@ public class DAO_Membre extends DAO<Membre> {
 				  + "WHERE IDMembre = ? AND IDBalade = ? ",
 				  ResultSet.TYPE_SCROLL_SENSITIVE,
 				  ResultSet.CONCUR_READ_ONLY);
-		stm.setInt(2, membre.getId());
-		stm.setInt(1, balade.getId());
-		result = stm.executeQuery();
-		if(result.first())
-			System.out.println("Vous êtes déjà inscrit.");
-		else {
-			stm = connect.prepareStatement(
-				  "INSERT INTO "
-				+ "LD_Membre_Balade(IDBalade, IDMembre) "
-				+ "VALUES(?, ?)");
-			stm.setInt(2, membre.getId());
-			stm.setInt(1, balade.getId());
+			stm.setInt(1, membre.getId());
+			stm.setInt(2, balade.getId());
 			result = stm.executeQuery();
-			bool = true;
+			if(result.first())
+				System.out.println("Vous êtes déjà inscrit.");
+			else {
+				stm = connect.prepareStatement(
+						"INSERT INTO "
+								+ "LD_Membre_Balade(IDBalade, IDMembre) "
+								+ "VALUES(?, ?)");
+				stm.setInt(1, balade.getId());
+				stm.setInt(2, membre.getId());
+				stm.executeUpdate();
+				bool = true;
 			}
 		}
 		catch(SQLException e){

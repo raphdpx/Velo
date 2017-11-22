@@ -34,15 +34,19 @@ public class DAO_Categorie extends DAO<Categorie> {
 				switch(nom) {
 				case "Cyclo" :
 					cat = new Cyclo();
+					cat.setId(4);
 					break;
 				case "Vtt Trial" :
 					cat = new Trial();
+					cat.setId(1);
 					break;
 				case "Vtt Descente" :
 					cat = new Descente();
+					cat.setId(2);
 					break;
 				case "Vtt Randonnee" :
 					cat = new Rando();
+					cat.setId(3);
 					break;
 				}
 			}

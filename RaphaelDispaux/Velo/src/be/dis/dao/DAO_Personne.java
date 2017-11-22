@@ -102,7 +102,9 @@ public class DAO_Personne extends DAO<Personne> {
 		Personne personne = new Personne();
 		ResultSet result = null;
 		try {
-			PreparedStatement stm = connect.prepareStatement("SELECT * FROM Personne P WHERE ID = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			PreparedStatement stm = connect.prepareStatement("SELECT * FROM Personne P WHERE ID = ?", 
+					ResultSet.TYPE_SCROLL_SENSITIVE, 
+					ResultSet.CONCUR_READ_ONLY);
 			result = stm.executeQuery();
 			
 			if(result.first()) {
@@ -143,6 +145,7 @@ public class DAO_Personne extends DAO<Personne> {
 					DAO_Responsable dao_responsable = new DAO_Responsable(DAO_Connection.getInstance());
 					Responsable responsable = dao_responsable.find(iD);
 					if(responsable != null) {
+						dao_responsable.setCat(responsable);
 						return responsable;
 					}
 					else {
