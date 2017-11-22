@@ -19,7 +19,6 @@ public class AffichageResponsable {
 		do {
 			System.out.println("************************************************");
 			System.out.println();
-			System.out.println(		user.getCategorie().getId());
 			System.out.println(" 1. Ajouter une balade");
 			System.out.println(" 2. Ajouter dette de transport");
 			System.out.println(" 3. Quitter");
@@ -93,7 +92,7 @@ public class AffichageResponsable {
 		System.out.print(" Entrez 0 pour un retour au menu");
 		do {
 			choix = Clavier.lireInt();
-			if(choix < 1 || choix > listeBalade.size())
+			if(choix < 0 || choix > listeBalade.size())
 				System.out.println(" Veuillez faire un choix parmi les propositions.");
 		}
 		while(choix < 0 || choix > listeBalade.size());

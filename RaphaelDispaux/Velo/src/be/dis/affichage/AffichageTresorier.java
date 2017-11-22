@@ -57,7 +57,7 @@ public class AffichageTresorier {
 		do {
 			choix = Clavier.lireInt();
 			System.out.print(" Entrez 0 pour un retour au menu");
-			if(choix < 1 || choix > listeMembre.size())
+			if(choix < 0 || choix > listeMembre.size())
 				System.out.println(" Veuillez faire un choix parmi les propositions.");
 		}
 		while(choix < 0 || choix > listeMembre.size());
