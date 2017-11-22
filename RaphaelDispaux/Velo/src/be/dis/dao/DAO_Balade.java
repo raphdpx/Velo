@@ -99,6 +99,46 @@ public class DAO_Balade extends DAO<Balade> {
 		}
 		return listBalade;
 	}
+	
+	public int placesVelo(Balade balade) {
+		int placesV = 0;
+		ResultSet result = null;
+		try {
+			PreparedStatement stm = connect.prepareStatement("SELECT * FROM Voiture V "
+					+ "INNER JOIN LD_Voiture_Balade L ON V.ID = L.IDVoiture "
+					+ "WHERE IDBalade = " + balade.getId(),
+					ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			result = stm.executeQuery();
+			while(result.next()) {
+				placesV += result.getInt("PlacesV");
+			}
+			return placesV;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return placesV;} 
+	}
+	
+	public int placesPassager(Balade balade) {
+		int placesP = 0;
+		ResultSet result = null;
+		try {
+			PreparedStatement stm = connect.prepareStatement("SELECT * FROM Voiture V "
+					+ "INNER JOIN LD_Voiture_Balade L ON V.ID = L.IDVoiture "
+					+ "WHERE IDBalade = " + balade.getId(),
+					ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			result = stm.executeQuery();
+			while(result.next()) {
+				placesP += result.getInt("PlacesP");
+			}
+			return placesP;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return placesP;} 
+	}
 
 
 }
