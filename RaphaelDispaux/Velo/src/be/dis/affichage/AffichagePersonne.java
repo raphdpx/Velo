@@ -2,6 +2,7 @@ package be.dis.affichage;
 
 import be.dis.clavier.Clavier;
 import be.dis.dao.DAO_Connection;
+import be.dis.dao.DAO_Membre;
 import be.dis.dao.DAO_Personne;
 import be.dis.main.Main;
 import be.dis.pojo.*;
@@ -86,6 +87,8 @@ public class AffichagePersonne {
 				user.getEmail(),
 				user.getMdp(),
 				0);
+		DAO_Membre dao_membre = new DAO_Membre(DAO_Connection.getInstance());
+		dao_membre.update(membre);
 		AffichageMembre.affichageMembre(membre);		
 	}
 	

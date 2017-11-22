@@ -119,8 +119,9 @@ public class AffichageMembre {
 		}
 		System.out.println();
 		System.out.println("************************************************");
+		System.out.println(" Entrez 0 pour un retour au menu");
 		System.out.print("  A quelle balade voulez-vous aller ? : ");
-		System.out.print(" Entrez 0 pour un retour au menu");
+		
 		do {
 			choix = Clavier.lireInt();
 			if(choix < 1 || choix > listeBalade.size())
@@ -155,8 +156,8 @@ public class AffichageMembre {
 		}
 		System.out.println();
 		System.out.println("************************************************");
+		System.out.println(" Entrez 0 pour un retour au menu");
 		System.out.print("  A quelle balade voulez-vous aller ? : ");
-		System.out.print(" Entrez 0 pour un retour au menu");
 		do {
 			choix = Clavier.lireInt();
 			if(choix < 1 || choix > listeBalade.size())
