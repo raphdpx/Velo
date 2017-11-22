@@ -23,7 +23,7 @@ public class DAO_Personne extends DAO<Personne> {
 			stm.setString(1, obj.getNom());
 			stm.setString(2, obj.getPrenom());
 			result = stm.executeQuery();
-			if(result.first())
+			if(result.next())
 				System.out.println("Cette personne est déjà inscrite.");
 			else {
 				stm = connect.prepareStatement(
@@ -122,78 +122,6 @@ public class DAO_Personne extends DAO<Personne> {
 	}
 	
 	public Personne connexion(String nom, String prenom, String mdp) {
-		Personne p;
-		PreparedStatement stmt = null;
-		ResultSet result = null;
-		try {
-			stmt = connect.prepareStatement("SELECT * FROM Personne WHERE nom = ? AND prenom = ? AND mdp = ?",
-					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			stmt.setString(1, nom);
-			stmt.setString(2, prenom);
-			stmt.setString(3, mdp);
-			result = stmt.executeQuery();
-			if(result.first()) {
-				String p_nom = result.getString("Nom");
-				String p_prenom = result.getString("Prenom");
-				String p_date = result.getString("DateNaissance");
-				String p_mail = result.getString("Email");
-				int p_ID = result.getInt("ID");
-				DAO_Membre dao_m = new DAO_Membre(DAO_Connection.getInstance());
-				Membre m = dao_m.find(p_ID);
-				if(m!=null) {
-					m.setNom(p_nom);
-					m.setPrenom(p_prenom);
-					m.setDate(p_date);
-					m.setEmail(p_mail);
-					m.setId(p_ID);
-					m.setMdp(mdp);
-					return m;
-				}
-				else {
-					DAO_Responsable dao_r = new DAO_Responsable(DAO_Connection.getInstance());
-					Responsable r = dao_r.find(p_ID);
-					if(r!=null) {
-						r.setNom(p_nom);
-						r.setPrenom(p_prenom);
-						r.setDate(p_date);
-						r.setEmail(p_mail);
-						r.setId(p_ID);
-						r.setMdp(mdp);
-						r.setCategorie(dao_r.find(p_ID).getCategorie());
-						return r;
-					}
-					else {
-						DAO_Tresorier dao_t = new DAO_Tresorier(DAO_Connection.getInstance());
-						Tresorier t = dao_t.find(p_ID);
-						if(t!=null) {
-							t.setNom(p_nom);
-							t.setPrenom(p_prenom);
-							t.setDate(p_date);
-							t.setEmail(p_mail);
-							t.setId(p_ID);
-							t.setMdp(mdp);
-							return t;
-						}
-						else {
-							p = new Personne(result.getString("nom"),result.getString("prenom"), result.getString("dateNaissance"),
-									result.getString("telephone"), result.getString("mail"), mdp);
-							p.setId(result.getInt("idPersonne"));
-							return p;
-						}
-					}
-				}
-			}
-			else {
-				p = null;
-				return p;
-			}
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-			return null;
-		}
-}
-/*	public Personne connexion(String nom, String prenom, String mdp) {
 		try {
 			PreparedStatement stm = connect.prepareStatement("SELECT * FROM Personne "
 					+ "WHERE Nom = ? AND Prenom = ? AND Mdp = ?", 
@@ -243,5 +171,5 @@ public class DAO_Personne extends DAO<Personne> {
 			e.printStackTrace();
 			return null;
 		}
-	} */
+	}
 }
